@@ -1,8 +1,6 @@
 package kz.technodom;
 
-import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
-
 import static com.codeborne.selenide.Configuration.*;
 
 public class baseTest {
