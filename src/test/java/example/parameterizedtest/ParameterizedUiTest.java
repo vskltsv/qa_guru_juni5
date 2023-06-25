@@ -4,6 +4,7 @@ package example.parameterizedtest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -42,4 +43,22 @@ public class ParameterizedUiTest extends BaseTest {
         $(".rc__XaSn3").$(byText(categoryName)).click();
         $$("._3Ufez li").filter(visible).shouldHave(texts(buttonName));
     }
+
+
+    @CsvSource({
+            "Луна, Луна́ — единственный естественный спутник Земли",
+            "Солнце,  Со́лнце (астр. ☉) — одна из звёзд нашей Галактики (Млечный Путь) и единственная звезда Солнечной системы."
+    })
+    @ParameterizedTest(name = "При вводе в поиск {0} на старнице присутствует текст {1}")
+    @DisplayName("Проверка поиска статьи на wikipedia")
+
+    void successfulSearchTextTest(String testData) {
+        open("https://ru.wikipedia.org/");
+        $("#searchInput").setValue(testData);
+        $("#searchButton").click();
+        $(".mw-page-title-main").shouldHave(text(testData));
+    }
+
+
+
 }
